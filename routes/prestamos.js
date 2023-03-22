@@ -29,6 +29,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Obtener un préstamo por sucursal
+
+router.get('/sucursal/:sucursal', async (req, res) => {
+  try {
+    const prestamos = await Prestamo.findPrestamoPorSucursal();
+    res.status(200).json(prestamos);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error al obtener los préstamos');
+  }
+});
 // Crear un nuevo préstamo
 router.post('/', async (req, res) => {
   const { noprestamo, idsucursal, cantidad } = req.body;
